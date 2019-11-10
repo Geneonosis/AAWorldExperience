@@ -9,6 +9,7 @@ public class GlobePosition : MonoBehaviour
     public float radiusOfNew = .2f;
     [Range(-90, 90)] public float latitude;
     [Range(-180, 180)] public float longitude;
+    public Vector3 newPosition;
 
     private Vector3 newDirection;
 
@@ -17,7 +18,15 @@ public class GlobePosition : MonoBehaviour
         if (center != null)
         {
             newDirection = Quaternion.Euler(0f, longitude * -1, latitude) * center.right;
-            Gizmos.DrawSphere(center.position + (newDirection * radius), radiusOfNew);
+            newPosition = center.position + (newDirection * radius);
+            Gizmos.DrawSphere(newPosition, radiusOfNew);
         }
+    }
+
+    public Vector3 getLocation(float lat, float lon)
+    {
+        newDirection = Quaternion.Euler(0f, longitude * -1, latitude) * center.right;
+        newPosition = center.position + (newDirection * radius);
+        return newPosition;
     }
 }
