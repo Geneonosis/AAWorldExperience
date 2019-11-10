@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class PointSelection : MonoBehaviour
 {
-    private string testString;
+
 
     [SerializeField] Vector3 source;
     [SerializeField] Vector3 destination;
     [SerializeField] GameObject pointMarker;
+
+    private string testString;
+    public string TestString { get => testString; set => testString = value; }
+
     // Start is called before the first frame update
     void Start()
     {
