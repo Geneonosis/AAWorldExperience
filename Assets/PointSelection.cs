@@ -36,13 +36,22 @@ public class PointSelection : MonoBehaviour
         //source = Random.onUnitSphere * earthScale;
         //destination = Random.onUnitSphere * earthScale;
 
+        ArrayList prevFlights = new ArrayList();
+        //prevFlights.Add()
+
         Debug.Log("Num Flights " + api.flights.Length);
         int i = 0;
         for (i = 0; i < 120 && i < api.flights.Length; i+=4)
         {
 			Flight f = api.flights[i];
+            
             source = getLocation(f.origin.location.latitude, -f.origin.location.longitude) * earthScale;
             destination = getLocation(f.destination.location.latitude, -f.destination.location.longitude) * earthScale;
+            if (prevFlights.Contains((source, destination)) || prevFlights.Contains((destination, source)))
+            {
+                continue;
+            }
+            prevFlights.Add((source, destination));
 
             GameObject myLR = Instantiate(Line_Renderer);
             lineRenderer = myLR.GetComponent<LineRenderer>();
